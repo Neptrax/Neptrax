@@ -118,7 +118,7 @@ export default function Home({ onNavigate }: HomeProps) {
   }`}
   style={{ fontFamily: 'Inter, sans-serif' }}
 >
-   Grow your business with a smart website
+   Grow your business online with a smart website
 </h1>
 </ScrollReveal>
 
