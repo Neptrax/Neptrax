@@ -13,7 +13,7 @@ export default function Portfolio() {
 
   const projectsData: Project[] = [
     { name: 'Wilde Brands', description: 'E-commerce food and accessories brand', url: 'https://www.wildebrands.com/', image: '/portfolio/wildebrands.png' },
-    { name: 'Jeton Wallet', description: 'Digital payment and money transfer platform', url: 'https://www.jeton.com/', image: 'public/portfolio/jeton.png' },
+    { name: 'Jeton Wallet', description: 'Digital payment and money transfer platform', url: 'https://www.jeton.com/', image: '/portfolio/jeton.png' },
     { name: 'Foursquare Church', description: 'Christian denomination church network website', url: 'https://www.foursquare.org/', image: '/portfolio/church.png' },
     { name: 'Rothy\'s Shoes', description: 'Sustainable footwear made from recycled materials', url: 'https://rothys.com/', image: '/portfolio/rothys.png' },
     { name: 'Inflow CRM', description: 'Cloud-based customer relationship management software', url: 'https://inflowcore.netlify.app/', image: '/portfolio/inflow.png' },
