@@ -49,7 +49,7 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a1a3f] via-[#0a142f] to-[#0d1117] pt-24 pb-20">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-[#f1f5f9] mb-4">
             Our Work Speaks for Itself.
@@ -63,22 +63,24 @@ export default function Portfolio() {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="group bg-[#1e293b] rounded-2xl overflow-hidden hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all duration-300 cursor-pointer"
+              className="group rounded-2xl overflow-hidden hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all duration-300 cursor-pointer"
             >
+              {/* Image Container - Now with rounded corners */}
               <div 
-                className="relative h-64 bg-gradient-to-br from-[#0f172a] to-[#2563eb] overflow-hidden cursor-pointer"
+                className="relative overflow-hidden rounded-t-2xl"
                 onClick={() => handleImageClick(project.url)}
               >
+                {/* Image with rounded top corners */}
                 <img
                   src={project.image}
                   alt={project.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-auto max-h-64 object-contain md:object-cover md:h-64 md:group-hover:scale-105 transition-transform duration-300 bg-transparent"
                   onError={handleImageError}
+                  style={{ borderRadius: '0.75rem 0.75rem 0 0' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent opacity-40"></div>
                 
                 {/* Hover overlay with visit website button */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#1e3a8a] to-[#828787] text-[#f1f5f9] font-medium text-sm hover:scale-105 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)]">
                     Visit Website
                     <ExternalLink size={16} className="transition-transform" />
@@ -86,7 +88,8 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              <div className="p-6">
+              {/* Text section with grey background and rounded bottom corners */}
+              <div className="p-6 bg-[#1e293b] rounded-b-2xl">
                 <h3 className="text-2xl font-bold text-[#f1f5f9] mb-2">{project.name}</h3>
                 <p className="text-[#94a3b8] text-sm leading-tight">{project.description}</p>
               </div>
