@@ -91,27 +91,26 @@ export default function MissionSection() {
   return (
     <section className="bg-[#28282B] py-24">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Hero Image + Text */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
-          <ScrollReveal direction="left" delay={0} depth={2}>
-            <div className="order-2 lg:order-1">
-              <div className="relative group">
-                <div className="rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(37,99,235,0.3)]">
-                  <img
-                    src = '/home.png'
-                    alt="Jeton Project"
-                    className="w-full h-[540px] object-cover transition-all duration-500 group-hover:brightness-110"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-          </ScrollReveal>
+        
+{/* Hero Image + Text */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+  <ScrollReveal direction="left" delay={0} depth={2}>
+    <div className="order-2 lg:order-1">
+      <div className="relative overflow-hidden rounded-2xl">
+        <img
+          src="/home.png"
+          alt="Jeton Project"
+          className="w-full h-auto object-contain lg:object-cover lg:h-[540px] hover:brightness-110 transition-all duration-300"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </div>
+    </div>
+  </ScrollReveal>
 
           <ScrollReveal direction="right" delay={150}>
             <div className="order-1 lg:order-2">
               <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
-                We build smarter, smoother experiences from the first click, turning interactions into meaningful results.
+                Smooth experiences that engage customers and grow your business.
               </h2>
 
               <div className="bg-[#1e293b]/50 rounded-2xl p-8 mb-8 border border-white/10">
@@ -317,29 +316,28 @@ export default function MissionSection() {
           </div>
         </ScrollReveal>
 
-        {/* About Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-24">
-          <ScrollReveal direction="left" delay={0} depth={2}>
-            <div className="relative">
-              <img 
-                src="/about.png" 
-                alt="About Neptrax" 
-                className="w-full h-auto rounded-2xl" 
-              />
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-600/10 mix-blend-overlay pointer-events-none"></div>
-            </div>
-          </ScrollReveal>
+{/* About Section */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-24">
+  <ScrollReveal direction="left" delay={0} depth={2}>
+    <div className="relative overflow-hidden rounded-2xl">
+      <img 
+        src="/about.png" 
+        alt="About Neptrax" 
+        className="w-full h-auto object-contain lg:object-cover lg:h-full bg-transparent"
+      />
+    </div>
+  </ScrollReveal>
 
-          <ScrollReveal direction="right" delay={150}>
-            <div>
-              <h2 className="text-4xl font-bold text-white mb-6">About Neptrax</h2>
-              <p className="text-white/90 text-lg leading-relaxed">
-                From coast to coast, we create websites, grow your rankings, and take social media off your plate. Our services won’t drain your budget, our support team is always there, and yes we actually reply. Whether you're beginning or leveling up, Neptrax helps you get it done smoothly and simply.
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </div>
-    </section>
-  );
+  <ScrollReveal direction="right" delay={150}>
+    <div>
+      <h2 className="text-4xl font-bold text-white mb-6">About Neptrax</h2>
+      <p className="text-white/90 text-5x1 leading-relaxed">
+        Based in Chicago, Neptrax designs and develops apps, creates custom websites, improves Google rankings, and manages social media. With 8+ years of experience, the work stays reliable, affordable, and shaped around your business needs, serving clients across the US and internationally. Whether you're starting out or growing, the process stays simple and smooth.
+      </p>
+    </div>
+  </ScrollReveal>
+</div>
+</div>
+</section>
+);
 }
