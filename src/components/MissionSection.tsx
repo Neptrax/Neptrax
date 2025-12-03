@@ -321,7 +321,7 @@ export default function MissionSection() {
   <ScrollReveal direction="left" delay={0} depth={2}>
     <div className="relative overflow-hidden rounded-2xl">
       <img 
-        src="/about.png" 
+        src="/aboutneptrax.png" 
         alt="About Neptrax" 
         className="w-full h-auto object-contain lg:object-cover lg:h-full bg-transparent"
       />
