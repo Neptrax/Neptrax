@@ -11,17 +11,47 @@ import Security from './pages/Security';
 import FAQs from './pages/FAQs';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('home');
+  // Detect initial section from URL or prerendered state
+  const getInitialSection = () => {
+    // Check if prerendered state exists (for SEO)
+    if (typeof window !== 'undefined' && (window as any).__INITIAL_SECTION__) {
+      return (window as any).__INITIAL_SECTION__;
+    }
+
+    // Detect from URL pathname
+    const path = window.location.pathname.replace(/^\/|\/$/g, '');
+    const validSections = ['home', 'services', 'portfolio', 'about', 'contact', 'faqs', 'privacy', 'security'];
+    return validSections.includes(path) ? path : 'home';
+  };
+
+  const [activeSection, setActiveSection] = useState(getInitialSection());
 
   const handleNavigate = (section: string) => {
     setActiveSection(section);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Update URL without page reload
+    const path = section === 'home' ? '/' : `/${section}`;
+    window.history.pushState({ section }, '', path);
   };
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
+
+    // Handle browser back/forward buttons
+    const handlePopState = (event: PopStateEvent) => {
+      const section = event.state?.section || getInitialSection();
+      setActiveSection(section);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    // Set initial history state
+    window.history.replaceState({ section: activeSection }, '', window.location.pathname);
+
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
+      window.removeEventListener('popstate', handlePopState);
     };
   }, []);
 
