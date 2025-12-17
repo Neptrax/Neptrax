@@ -1,0 +1,20 @@
+# Cloudflare Pages Redirects Configuration
+# This file ensures proper routing for the SPA with prerendered pages
+
+# Serve prerendered pages directly (they will exist after build)
+/services              /services/index.html             200
+/portfolio             /portfolio/index.html            200
+/about                 /about/index.html                200
+/contact               /contact/index.html              200
+/faqs                  /faqs/index.html                 200
+/privacy               /privacy/index.html              200
+/security              /security/index.html             200
+
+# Serve static assets directly
+/assets/*              /assets/:splat                   200
+/logo.png              /logo.png                        200
+/bark.png              /bark.png                        200
+/robots.txt            /robots.txt                      200
+
+# SPA fallback - serve index.html for all other routes
+/*                     /index.html                      200
