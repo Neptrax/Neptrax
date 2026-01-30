@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Send, Mail, MessageSquare, User, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, Mail, MessageSquare, User, CheckCircle, AlertCircle, FileText } from 'lucide-react';
 
 interface ContactProps {
   onNavigate: (section: string) => void;
@@ -9,6 +9,7 @@ export default function Contact({ onNavigate }: ContactProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,9 +17,41 @@ export default function Contact({ onNavigate }: ContactProps) {
     type: 'success' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
+  const [validationErrors, setValidationErrors] = useState<{
+    email?: string;
+    message?: string;
+  }>({});
+
+  const validateForm = () => {
+    const errors: { email?: string; message?: string } = {};
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailRegex.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    // Message validation (minimum 10 characters)
+    if (formData.message && formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters long';
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate form before submission
+    if (!validateForm()) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please fix the validation errors before submitting.',
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
 
@@ -41,7 +74,8 @@ export default function Contact({ onNavigate }: ContactProps) {
           type: 'success',
           message: 'Thank you for your message! We will get back to you soon.',
         });
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setValidationErrors({});
       } else {
         setSubmitStatus({
           type: 'error',
@@ -59,11 +93,23 @@ export default function Contact({ onNavigate }: ContactProps) {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // Clear validation error for this field when user starts typing
+    if (validationErrors[name as keyof typeof validationErrors]) {
+      setValidationErrors({
+        ...validationErrors,
+        [name]: undefined,
+      });
+    }
   };
+
+  const messageLength = formData.message.trim().length;
+  const isMessageValid = messageLength >= 10;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0d1117] via-[#111827] to-[#0f172a] pt-24 pb-20">
@@ -101,7 +147,7 @@ export default function Contact({ onNavigate }: ContactProps) {
             <div>
               <label htmlFor="email" className="flex items-center gap-2 text-[#f1f5f9] font-medium mb-2">
                 <Mail size={18} className="text-[#2563eb]" />
-                Email
+                Email <span className="text-red-400">*</span>
               </label>
               <input
                 type="email"
@@ -110,15 +156,49 @@ export default function Contact({ onNavigate }: ContactProps) {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-[#0d1117] border border-white/8 rounded-xl text-[#f1f5f9] placeholder-[#94a3b8] focus:outline-none focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                className={`w-full px-4 py-3 bg-[#0d1117] border rounded-xl text-[#f1f5f9] placeholder-[#94a3b8] focus:outline-none focus:ring-2 transition-all ${
+                  validationErrors.email
+                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                    : 'border-white/8 focus:border-[#2563eb] focus:ring-[#2563eb]/20'
+                }`}
                 placeholder="your@email.com"
+              />
+              {validationErrors.email && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <AlertCircle size={14} />
+                  {validationErrors.email}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="subject" className="flex items-center gap-2 text-[#f1f5f9] font-medium mb-2">
+                <FileText size={18} className="text-[#2563eb]" />
+                Subject <span className="text-[#94a3b8] text-sm font-normal">(Optional)</span>
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-[#0d1117] border border-white/8 rounded-xl text-[#f1f5f9] placeholder-[#94a3b8] focus:outline-none focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                placeholder="How can we help you?"
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="flex items-center gap-2 text-[#f1f5f9] font-medium mb-2">
-                <MessageSquare size={18} className="text-[#2563eb]" />
-                Message
+              <label htmlFor="message" className="flex items-center justify-between text-[#f1f5f9] font-medium mb-2">
+                <span className="flex items-center gap-2">
+                  <MessageSquare size={18} className="text-[#2563eb]" />
+                  Message <span className="text-red-400">*</span>
+                </span>
+                <span className={`text-xs ${
+                  messageLength === 0 ? 'text-[#94a3b8]' :
+                  isMessageValid ? 'text-green-400' : 'text-orange-400'
+                }`}>
+                  {messageLength}/10 min
+                </span>
               </label>
               <textarea
                 id="message"
@@ -126,10 +206,21 @@ export default function Contact({ onNavigate }: ContactProps) {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                minLength={10}
                 rows={6}
-                className="w-full px-4 py-3 bg-[#0d1117] border border-white/8 rounded-xl text-[#f1f5f9] placeholder-[#94a3b8] focus:outline-none focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all resize-none"
-                placeholder="Tell us about your project..."
+                className={`w-full px-4 py-3 bg-[#0d1117] border rounded-xl text-[#f1f5f9] placeholder-[#94a3b8] focus:outline-none focus:ring-2 transition-all resize-none ${
+                  validationErrors.message
+                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                    : 'border-white/8 focus:border-[#2563eb] focus:ring-[#2563eb]/20'
+                }`}
+                placeholder="Tell us about your project... (minimum 10 characters)"
               />
+              {validationErrors.message && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <AlertCircle size={14} />
+                  {validationErrors.message}
+                </p>
+              )}
             </div>
 
             <button
