@@ -1,5 +1,8 @@
 import { Twitter, Instagram } from 'lucide-react';
 
+const CONTACT_EMAIL = 'contact@neptrax.com';
+const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}`;
+
 interface FooterProps {
   onNavigate: (section: string) => void;
 }
@@ -7,9 +10,10 @@ interface FooterProps {
 export default function Footer({ onNavigate }: FooterProps) {
   const quickLinks = [
     { id: 'home', label: 'Home' },
+    { id: 'services', label: 'Services' },
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'contact', label: 'Contact' },
-    { id: 'services', label: 'Services' },
+
   ];
 
   const infoLinks = [
@@ -20,8 +24,8 @@ export default function Footer({ onNavigate }: FooterProps) {
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: 'https://x.com', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
+    { icon: Twitter, href: 'https://x.com/Neptraxdigital', label: 'Twitter' },
+    { icon: Instagram, href: 'https://www.instagram.com/neptraxdigital/', label: 'Instagram' },
   ];
 
   return (
@@ -34,26 +38,36 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="flex items-center gap-3 hover:opacity-80 transition-opacity mb-3"
             >
               <img src="/logo.png" alt="Neptrax" className="h-12 w-12" />
-              <span
-                className="text-2xl font-bold bg-gradient-to-r from-[#2563eb] to-[#3b82f6] bg-clip-text text-transparent"
-              >
+              <span className="text-2xl font-bold bg-gradient-to-r from-[#22d3ee] via-[#0ea5e9] to-[#5391f5] bg-clip-text text-transparent">
                 Neptrax
               </span>
             </button>
             <a
-              href="https://gmail.com"
+              href={GMAIL_COMPOSE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex justify-start text-[#94a3b8] hover:text-[#2563eb] text-sm transition-colors"
+              className="flex justify-start text-[#94a3b8] hover:text-[#2563eb] text-sm transition-colors group"
+              title="Open in Gmail"
             >
-              info@neptrex.com
+              {CONTACT_EMAIL}
+              <svg
+                className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
             </a>
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-[#f1f5f9] mb-3">
-              Quick Links
-            </h3>
+            <h3 className="text-xl font-bold text-[#f1f5f9] mb-3">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.id}>
@@ -69,9 +83,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-[#f1f5f9] mb-3">
-              Info
-            </h3>
+            <h3 className="text-xl font-bold text-[#f1f5f9] mb-3">Info</h3>
             <ul className="space-y-2">
               {infoLinks.map((link) => (
                 <li key={link.id}>
@@ -87,10 +99,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-[#f1f5f9] mb-3">
-              Connect
-            </h3>
-            {/* Icons in flex row */}
+            <h3 className="text-xl font-bold text-[#f1f5f9] mb-3">Connect</h3>
             <div className="flex gap-4 items-center mb-2">
               {socialLinks.map((social) => (
                 <a
@@ -105,26 +114,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                 </a>
               ))}
             </div>
-{/* bark.com image on its own line */}
-<a
-  href="https://bark.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="block mt-2"
->
-  <img
-    src="/bark.png"
-    alt="bark.com"
-    className="h-10 w-22"
-  />
-</a>
           </div>
         </div>
 
         <div className="border-t border-white/8 pt-8 flex flex-col items-center justify-center text-center">
-          <p className="text-[#94a3b8] text-sm">
-            © 2025 Neptrax. All rights reserved.
-          </p>
+          <p className="text-[#94a3b8] text-sm">© 2017-2026 Neptrax, All Rights Reserved.</p>
         </div>
       </div>
     </footer>
