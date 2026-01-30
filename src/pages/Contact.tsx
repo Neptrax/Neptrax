@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Send, Mail, MessageSquare, User, CheckCircle, AlertCircle, FileText } from 'lucide-react';
 
+const CONTACT_EMAIL = 'contact@neptrax.com';
+const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}`;
+
 interface ContactProps {
   onNavigate: (section: string) => void;
 }
@@ -253,12 +256,26 @@ export default function Contact({ onNavigate }: ContactProps) {
 <p className="text-[#94a3b8] text-sm text-center mt-6">
   Or reach out to us directly at{' '}
   <a
-    href="https://mail.google.com"
+    href={GMAIL_COMPOSE_URL}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-[#2563eb] hover:underline"
+    className="text-[#2563eb] hover:underline group"
+    title="Open in Gmail"
   >
-    info@neptrax.com
+    {CONTACT_EMAIL}
+    <svg
+      className="w-4 h-4 ml-1 inline opacity-0 group-hover:opacity-100 transition-opacity"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+      />
+    </svg>
   </a>
 </p>
         </div>
