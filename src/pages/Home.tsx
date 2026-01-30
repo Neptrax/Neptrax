@@ -116,7 +116,7 @@ export default function Home({ onNavigate }: HomeProps) {
   className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font mb-4 sm:mb-6 leading-tight ${
     isMobile ? 'mobile-hero-heading' : 'text-[#f1f5f9]'
   }`}
-  style={{ fontFamily: 'Inter, sans-serif' }}
+  style={{ fontFamily: 'Montserrat, sans-serif' }}
 >
    Grow your business online with a smart website
 </h1>
